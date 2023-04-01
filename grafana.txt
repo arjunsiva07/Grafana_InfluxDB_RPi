@@ -1,0 +1,42 @@
+sudo raspi-config
+sudo reboot
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo apt-get update
+sudo apt-get install -y grafana
+sudo /bin/systemctl enable grafana-server
+sudo /bin/systemctl status grafana-server
+sudo /bin/systemctl start grafana-server
+sudo /bin/systemctl status grafana-server
+
+sudo apt update
+sudo apt upgrade
+curl https://repos.influxdata.com/influxdata-archive.key | gpg --dearmor | sudo tee /usr/share/keyrings/influxdb-archive-keyring.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/influxdb-archive.keyring.gpg] https://repos.influxdata.com/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+sudo apt update
+sudo apt install influxdb
+influx -config /etc/influxdb/influxdb.conf
+sudo systemctl unmask influxdb
+sudo systemctl enable influxdb
+sudo systemctl start influxdb
+sudo apt install influxdb-client
+influx
+
+sudo grafana-cli plugins install grafana-worldmap-panel
+sudo service grafana-server restart
+nano map.py
+sudo pip3 install pandas
+python3 map.py
+sudo apt-get install python-influxdb
+influx
+pip3 install influxdb-client
+sudo apt-get update && sudo apt-get install influxdb
+sudo systemctl unmask influxdb.service
+sudo systemctl start influxdb
+influxd -config /etc/influxdb/influxdb.conf
+python3 map.py
+sudo python3 map.py
+pip3 install influxdb
+nano map.py
+python3 map.py
+
